@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "dev": "concurrently \"./node_modules/.bin/bun --watch run back/server.ts\" \"vite build --watch\"",
-        "build": "NODE_ENV=production vite build && NODE_ENV=production ./node_modules/.bin/bun build --production--compile --minify --outfile dist/bunvite-app back/server.ts",
+        "build": "NODE_ENV=production vite build && NODE_ENV=production ./node_modules/.bin/bun build --compile --minify --outfile dist/bunvite-app back/server.ts",
         "clean": "rm -rf dist"
     },
     "dependencies": {
