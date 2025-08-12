@@ -1,4 +1,5 @@
 import { serve, file } from "bun"
+import { resolve, normalize } from "path"
 
 const server = serve({
     port: 3000,
@@ -19,7 +20,11 @@ const server = serve({
 
         // All other assets, that really exists and path not started with api
         if (path.startsWith("/assets")) {
-            return new Response( file(`dist/${path}`))
+            // Sanitize path and prevent directory traversal attacks
+            const fullPath = resolve('dist', normalize(path).replace(/^\/+/, ''))
+            if (fullPath.startsWith(resolve('dist'))) {
+                return new Response(file(fullPath))
+            }
         }
 
         // Return 404 for unmatched routes
